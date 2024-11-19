@@ -1,6 +1,8 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
+# TODO: ADD STREAMCOUNT OPTION FROM A DIFFERENT API (IF POSSIBLE)
+
 def fetch_track_info(playlist_id):
     client_id = '9ccfa603b1e44e4d83df5e07d118dcc8'
     client_secret = '95f173867e00467991ca93235f4c1ed8'
