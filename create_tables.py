@@ -19,7 +19,7 @@ def create_tables(connection):
     with connection.cursor() as cursor:
         # Create Song table with auto-increment id
         cursor.execute(''' 
-            CREATE TABLE IF NOT EXISTS Song (
+            CREATE TABLE IF NOT EXISTS Songs (
                 song_id SERIAL PRIMARY KEY,
                 rank INT NOT NULL,
                 title VARCHAR(255),
@@ -34,9 +34,9 @@ def create_tables(connection):
 
         # Create Spotify-specific song table with auto-increment id
         cursor.execute(''' 
-            CREATE TABLE IF NOT EXISTS SpotifySong (
+            CREATE TABLE IF NOT EXISTS SpotifySongs (
                 spotify_song_id SERIAL PRIMARY KEY,
-                song_id INT REFERENCES Song(song_id),
+                song_id INT REFERENCES Songs(song_id),
                 spotify_popularity_score INT CHECK (spotify_popularity_score >= 0 AND spotify_popularity_score <=100),
                 spotify_url VARCHAR(255)
             ); 
@@ -44,16 +44,16 @@ def create_tables(connection):
         print('SpotifySong table created successfully')
         connection.commit()
 
-        # Create Soundcloud-specific song table with auto-increment id
+        # Create Lastfm-specific song table with auto-increment id
         cursor.execute(''' 
-            CREATE TABLE IF NOT EXISTS SoundCloudSong (
-                soundcloud_song_id SERIAL PRIMARY KEY,
-                song_id INT REFERENCES Song(song_id),
-                soundcloud_stream_count INT CHECK (soundcloud_stream_count >= 0),
-                soundcloud_url VARCHAR(255)
+            CREATE TABLE IF NOT EXISTS LastfmSongs (
+                lastfm_song_id SERIAL PRIMARY KEY,
+                song_id INT REFERENCES Songs(song_id),
+                lastfm_stream_count INT CHECK (lastfm_stream_count >= 0),
+                lastfm_url VARCHAR(255)
             );
         ''')
-        print('AppleMusicSong table created successfully')
+        print('Lastfm table created successfully')
         connection.commit()
 
 
