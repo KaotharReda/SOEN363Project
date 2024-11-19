@@ -1,3 +1,4 @@
+# run this command in CMD: python -m pip install spotipy
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
