@@ -4,11 +4,12 @@ def fetch_track_info():
     API_KEY = '4bf9b151ce4a03a997c8bdcbd5934ab4'
     API_URL = 'https://ws.audioscrobbler.com/2.0/'
 
+    # Get top tracks first
     params = {
         'method': 'chart.gettoptracks',
         'api_key': API_KEY,
         'format': 'json',
-        'limit': 20 
+        'limit': 20
     }
 
     response = requests.get(API_URL, params=params)
@@ -21,20 +22,36 @@ def fetch_track_info():
     top_tracks = data.get('tracks', {}).get('track', [])
     
     track_info_list = []
-    
+
     for index, track in enumerate(top_tracks):
         title = track['name']
         artist_name = track['artist']['name']
         
-        # TODO: FIX SONGS THAT DON'T RETURN ALBUM (CHECK RAW JSON)
-        album_name = track['album']['title'] if 'album' in track else 'N/A'
+        # track.getInfo for album names
+        # TODO: FIX GENRE IMPLEMENTATION
+        track_params = {
+            'method': 'track.getInfo',
+            'api_key': API_KEY,
+            'format': 'json',
+            'artist': artist_name,
+            'track': title
+        }
         
-        lastfm_url = track['url']
-        stream_count = track['playcount']
+        track_response = requests.get(API_URL, params=track_params)
         
-        # TODO: ADD GENRE BCS LASTFM DOESN'T SUPPORT IT
-        genre = "N/A"
+        if track_response.status_code != 200:
+            print(f"Error: Unable to fetch track info for {title} by {artist_name}. Status Code: {track_response.status_code}")
+            continue
         
+        track_data = track_response.json()
+        
+        album_name = track_data.get('track', {}).get('album', {}).get('title', 'Single')
+        genre = track_data.get('track', {}).get('toptags', {}).get('tag', [{}])[0].get('name', 'N/A')
+        if track_info_list[genre] == "MySpotigramBot": # Fix for songs that don't have an album
+            genre = "Single"
+        stream_count = track_data.get('track', {}).get('playcount', 'N/A')
+        lastfm_url = track_data.get('track', {}).get('url', 'N/A')
+
         track_info_list.append({
             "rank": index + 1,
             "title": title,
