@@ -4,7 +4,6 @@ def fetch_track_info():
     API_KEY = '4bf9b151ce4a03a997c8bdcbd5934ab4'
     API_URL = 'https://ws.audioscrobbler.com/2.0/'
 
-    # Get top tracks first
     params = {
         'method': 'chart.gettoptracks',
         'api_key': API_KEY,
@@ -27,7 +26,6 @@ def fetch_track_info():
         title = track['name']
         artist_name = track['artist']['name']
         
-        # track.getInfo for album names
         # TODO: FIX GENRE IMPLEMENTATION
         track_params = {
             'method': 'track.getInfo',
@@ -47,7 +45,7 @@ def fetch_track_info():
         
         album_name = track_data.get('track', {}).get('album', {}).get('title', 'Single')
         genre = track_data.get('track', {}).get('toptags', {}).get('tag', [{}])[0].get('name', 'N/A')
-        if track_info_list[genre] == "MySpotigramBot": # Fix for songs that don't have an album
+        if track_info_list[genre] == "MySpotigramBot": # Fix for songs that don't have an album (displays as "Single")
             genre = "Single"
         stream_count = track_data.get('track', {}).get('playcount', 'N/A')
         lastfm_url = track_data.get('track', {}).get('url', 'N/A')
