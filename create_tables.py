@@ -6,7 +6,7 @@ def create_connection():
         connection = psycopg2.connect(
             dbname="musicstreamingdb", 
             user="postgres",  
-            password="postgrespass",  
+            password="Automne2020",  
             host="localhost" 
         )
         return connection

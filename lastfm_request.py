@@ -26,7 +26,6 @@ def fetch_track_info():
         title = track['name']
         artist_name = track['artist']['name']
         
-        # TODO: FIX GENRE IMPLEMENTATION
         track_params = {
             'method': 'track.getInfo',
             'api_key': API_KEY,
@@ -45,8 +44,6 @@ def fetch_track_info():
         
         album_name = track_data.get('track', {}).get('album', {}).get('title', 'Single')
         genre = track_data.get('track', {}).get('toptags', {}).get('tag', [{}])[0].get('name', 'N/A')
-        if track_info_list[genre] == "MySpotigramBot": # Fix for songs that don't have an album (displays as "Single")
-            genre = "Single"
         stream_count = track_data.get('track', {}).get('playcount', 'N/A')
         lastfm_url = track_data.get('track', {}).get('url', 'N/A')
 
