@@ -24,8 +24,8 @@ def create_database():
             connection.autocommit = True  # Enable autocommit mode
 
             with connection.cursor() as cursor:
-                cursor.execute(sql.SQL("CREATE DATABASE SpotifyAppleMusicDB;"))
-                print("Database 'SpotifyAppleMusicDB' created successfully!")
+                cursor.execute(sql.SQL("CREATE DATABASE MusicStreamingDB;"))
+                print("Database 'MusicStreamingDB' created successfully!")
 
         except Exception as e:
             print("Error creating the database:", e)
