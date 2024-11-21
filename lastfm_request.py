@@ -45,8 +45,17 @@ def fetch_track_info():
         
         album_name = track_data.get('track', {}).get('album', {}).get('title', 'Single')
         genre = track_data.get('track', {}).get('toptags', {}).get('tag', [{}])[0].get('name', 'N/A')
-        if track_info_list[genre] == "MySpotigramBot": # Fix for songs that don't have an album (displays as "Single")
-            genre = "Single"
+        # Fetch and process genre information
+        genre_data = track_data.get('track', {}).get('toptags', {}).get('tag', [])
+        if genre_data:  # Check if genre data is available
+            genre = genre_data[0].get('name', 'N/A')
+        else:
+            genre = "N/A"  # Set default genre as 'N/A' if no genre data found
+
+        if genre == "MySpotigramBot":  # Replace placeholder or incorrect genre
+            genre = "N/A"
+        if album_name == "MySpotigramBot":
+            album_name = "Single"
         stream_count = track_data.get('track', {}).get('playcount', 'N/A')
         lastfm_url = track_data.get('track', {}).get('url', 'N/A')
 
