@@ -44,6 +44,10 @@ def fetch_track_info():
         
         album_name = track_data.get('track', {}).get('album', {}).get('title', 'Single')
         genre = track_data.get('track', {}).get('toptags', {}).get('tag', [{}])[0].get('name', 'N/A')
+
+        if genre == "MySpotigramBot": # Defaults to this if no value is found
+            genre = "N/A"
+
         stream_count = track_data.get('track', {}).get('playcount', 'N/A')
         lastfm_url = track_data.get('track', {}).get('url', 'N/A')
 
