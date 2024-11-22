@@ -83,6 +83,12 @@ def insert_lastfm_data(connection, track_data):
                     track["lastfm_url"]
                 ))
 
+                cursor.execute(''' 
+                    UPDATE Songs
+                    SET genre = NULL
+                    WHERE genre = 'N/A';
+                ''')
+
             connection.commit()
             print("Last.fm data inserted successfully!")
     except Exception as e:
