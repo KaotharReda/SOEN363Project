@@ -42,3 +42,4 @@ if __name__ == "__main__":
     track_info = fetch_track_info(playlist_id)
     for info in track_info:
         print(info)
+    
