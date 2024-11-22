@@ -7,10 +7,10 @@ SELECT artist, COUNT(*)
 FROM Songs 
 GROUP BY artist
 
-SELECT genre, COUNT(*)
-FROM Songs
-GROUP BY genre
-HAVING rank<=5
+SELECT artist, COUNT(*) 
+FROM Songs GROUP BY artist 
+HAVING COUNT(*) > 5;
+
 
 
 
