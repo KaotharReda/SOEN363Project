@@ -18,7 +18,7 @@ def create_connection(dbname, user, password, host):
 # Function to create the SpotifyAppleMusicDB
 def create_database():
     # Insert your  credentials
-    connection = create_connection("postgres", "postgres", "postgrespass", "localhost")
+    connection = create_connection("MusicStreamingDB", "postgres", "postgres", "localhost")
     if connection:
         try:
             connection.autocommit = True  # Enable autocommit mode
