@@ -4,9 +4,9 @@ import psycopg2
 def create_connection():
     try:
         connection = psycopg2.connect(
-            dbname="musicstreamingdb", 
+            dbname="MusicStreamingDB",
             user="postgres",  
-            password="Automne2020",  
+            password="postgres",
             host="localhost" 
         )
         return connection
